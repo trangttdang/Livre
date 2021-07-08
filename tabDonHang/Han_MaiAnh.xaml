@@ -1,0 +1,553 @@
+﻿<Window x:Class="tabDonHang.Han_MaiAnh"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:tabDonHang"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+          xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+        mc:Ignorable="d"
+        Title="Han_MaiAnh" Height="700" Width="1200" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Background="#FDFDFD">
+
+    <Window.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="60"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="60"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnOpenMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btnCloseMenu">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}"/>
+        </EventTrigger>
+
+    </Window.Triggers>
+
+
+    <Grid Background="#FDFDFD">
+        <Grid Height="70" VerticalAlignment="Top" Background="#FFF44336">
+            <TextBlock FontSize="21" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FDFDFD" Text="BOOK STORE MANAGEMENT SYSTEM"/>
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock x:Name="tbkUserName" Foreground="#25271C" FontStyle="Italic" VerticalAlignment="Center" FontSize="15"/>
+                <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Foreground="#25271C">
+                    <Button x:Name="btnLogout" Content="Logout" Click="btnLogout_Click" Width="150"/>
+                </materialDesign:PopupBox>
+
+            </StackPanel>
+        </Grid>
+        <Grid Margin="60,70,0,0" x:Name="GridDonHang">
+            <dragablz:TabablzControl Margin="0,-26,0,0" FixedHeaderCount="2">
+                <dragablz:TabablzControl.InterTabController>
+                    <dragablz:InterTabController/>
+                </dragablz:TabablzControl.InterTabController>
+
+                <TabItem Header="CREATE INVOICE">
+                    <Grid>
+                        <Label Content="Customer name" HorizontalAlignment="Left" Margin="89,90,0,0" Width="116" FontSize="14"/>
+                        <TextBox x:Name="txtsoDienThoai" HorizontalAlignment="Left" Margin="243,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126" />
+                        <Label Content="Phone number" HorizontalAlignment="Left" Margin="89,60,0,0" VerticalAlignment="Top" Width="116" FontSize="14" />
+                        <TextBox x:Name="txttenKhachHang" HorizontalAlignment="Left" Margin="243,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126" />
+                        <Label Content="Address" HorizontalAlignment="Left" Margin="89,120,0,0" VerticalAlignment="Top" Width="116" FontSize="14" />
+                        <TextBox x:Name="txtdiaChi" HorizontalAlignment="Left" Margin="243,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126"/>
+
+                        <Label Content="Payment &#xA;Method" HorizontalAlignment="Left" Margin="89,210,0,0" VerticalAlignment="Top" Width="95" FontSize="14"  Height="46"/>
+                        <RadioButton x:Name="radtienMat" Content="Cash" HorizontalAlignment="Left" Margin="243,210,0,0" VerticalAlignment="Top" Width="80" FontSize="14" />
+                        <RadioButton x:Name="radchuyenKhoan" Content="Card" HorizontalAlignment="Left" Margin="328,210,0,0" VerticalAlignment="Top" Width="80" FontSize="14" />
+                        <Button x:Name="btntaoDonHang" Content="Create invoice" HorizontalAlignment="Left" Margin="900,530,0,0" VerticalAlignment="Top" Height="30" FontSize="14" Width="150"  Click="btntaoDonHang_Click"/>
+                        <Label Content="Date" HorizontalAlignment="Left" Margin="89,180,0,0" VerticalAlignment="Top" Width="116" FontSize="14"  RenderTransformOrigin="0.616,-1.891"/>
+
+                        <Button x:Name="btnCheckSDT" Content="Check" Margin="-120,60,0,0" VerticalAlignment="Top" Height="30" FontSize="14" Width="150" Click="btnCheckSDT_Click"/>
+                        <Button x:Name="btnHuyTaoDonHang" Content="Canacel" Margin="-120,115,0,0"  VerticalAlignment="Top" Height="30" FontSize="14" Width="150" Click="btnHuyTaoDonHang_Click"/>
+                        <Label Content="Order ID" HorizontalAlignment="Left" Margin="89,30,0,0" VerticalAlignment="Top" FontSize="14"/>
+                        <Label x:Name="txtMaHD"  HorizontalAlignment="Left" Margin="243,26,0,0" VerticalAlignment="Top" FontSize="14" Width="140" Height="32"/>
+                        <Label Content="Total" HorizontalAlignment="Left" VerticalAlignment="Top" Width="126" FontSize="14"  Margin="700,530,0,0"/>
+                        <Label x:Name="lblThanhTien" Content="0" HorizontalAlignment="Left" Height="29"  VerticalAlignment="Top" Width="126" FontSize="14" Margin="820,530,0,0"/>
+                        <ListBox x:Name="listchonmuaSP" ItemsSource="{Binding ListSP}" Margin="700,30,89,0" VerticalAlignment="Top" Height="200" SelectionChanged="listchonmuaSP_SelectionChanged" SelectionMode="Extended" RenderTransformOrigin="0.501,0.5">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Margin="3" Width="30" Source="{Binding Hinh}"/>
+                                        <TextBlock Margin="3" Text="{Binding TenSanPham}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <Label x:Name="lblngayMua" HorizontalAlignment="Left" Margin="243,180,0,0"  VerticalAlignment="Top" Width="126" FontSize="14" />
+                        <Label Content="Discount" HorizontalAlignment="Left" Margin="700,500,0,0" VerticalAlignment="Top" Width="116" FontSize="14" />
+                        <Label x:Name="lblChietKhau" HorizontalAlignment="Left" Height="26" Margin="820,500,0,0" VerticalAlignment="Top" Width="126" FontSize="14" />
+                        <Label Content="Customer ranking" HorizontalAlignment="Left" Margin="89,150,0,0" VerticalAlignment="Top" Width="116" FontSize="14"/>
+                        <Label x:Name="lblloaiKH" HorizontalAlignment="Left" Height="26" Margin="243,150,0,0" VerticalAlignment="Top" Width="126" FontSize="14" />
+
+
+                        <ListView x:Name="LsvDSMua" HorizontalAlignment="Stretch" Margin="10,270,10,120" VerticalAlignment="Stretch" Foreground="Black" FontSize="16"  BorderBrush="Black" SelectionChanged="LsvDSNCC_SelectionChanged" >
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Product ID" Width="150" DisplayMemberBinding="{Binding MaSanPham}" />
+                                    <GridViewColumn Header="Product name" Width="180" DisplayMemberBinding="{Binding TenSanPham}"/>
+                                    <GridViewColumn Header="Supplier" Width="180" DisplayMemberBinding="{Binding TenNCC}"/>
+                                    <GridViewColumn Header="Quantity" Width="180" DisplayMemberBinding="{Binding SLBan}"/>
+                                    <GridViewColumn Header="Selling price" Width="160" DisplayMemberBinding="{Binding GiaBan}"/>
+                                    <GridViewColumn Header="Total" Width="160" DisplayMemberBinding="{Binding ThanhTien_Ban}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="LIST OF INVOICES">
+                    <Grid>
+                        <TextBox x:Name="txtSearch" HorizontalAlignment="Left" Margin="700,30,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="154" FontSize="14" />
+                        <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Stretch" Margin="450,-30,378,490" VerticalAlignment="Stretch" Height="30" FontSize="14" Width="150"  Click="btnTimKiem_Click"/>
+                        <Label Content="Enter phone number" HorizontalAlignment="Left" Margin="700,60,0,0" VerticalAlignment="Top" Height="34" Width="174" Foreground="#FF969191" FontStyle="Italic"/>
+                        <Label x:Name="lblSoDonHang" Content="" HorizontalAlignment="Left" Margin="360,30,0,0" VerticalAlignment="Top" Height="30" Width="127" FontSize="14"  FontStyle="Italic"/>
+                        <Button x:Name="btnHuyTimKiem" Content="Cancel search" HorizontalAlignment="Stretch" Margin="870,-30,99,490" VerticalAlignment="Stretch" Height="30" FontSize="14" Width="150"  Click="btnHuyTimKiem_Click"/>
+                        <Button x:Name="btnXuatHoaDon" Content="Print receipt" HorizontalAlignment="Stretch" Margin="450,500,378,0" VerticalAlignment="Stretch" Height="30" FontSize="14" Width="150" Click="btnXuatHoaDon_Click" RenderTransformOrigin="0.5,0.504"/>
+
+                        <ListView x:Name="LsvDSHoaDon" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1100" Margin="10,90,10,0">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="#" Width="60" DisplayMemberBinding="{Binding STT}"/>
+                                    <GridViewColumn Header="Invoice ID" Width="120" DisplayMemberBinding="{Binding MaDH}"/>
+                                    <GridViewColumn Header="Customer name" Width="140" DisplayMemberBinding="{Binding TenKhachHang}"/>
+                                    <GridViewColumn Header="Phone number" Width="120" DisplayMemberBinding="{Binding SoDienThoai}"/>
+                                    <GridViewColumn Header="Address" Width="160" DisplayMemberBinding="{Binding DiaChi}"/>
+
+                                    <GridViewColumn Header="Discount" Width="100" DisplayMemberBinding="{Binding ChietKhauHien}"/>
+                                    <GridViewColumn Header="Total" Width="100" DisplayMemberBinding="{Binding ThanhTien_HD}"/>
+                                    <GridViewColumn Header="Date" Width="100" DisplayMemberBinding="{Binding NgayMua}"/>
+                                    <GridViewColumn Header="Payment method" Width="180" DisplayMemberBinding="{Binding PhuongThucThanhToan}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </TabItem>
+            </dragablz:TabablzControl>
+
+        </Grid>
+
+        <Grid Margin="60,70,0,0" x:Name="GridKhachHang" Visibility="Collapsed">
+            <dragablz:TabablzControl Margin="0,-26,0,0" FixedHeaderCount="1">
+                <dragablz:TabablzControl.InterTabController>
+                    <dragablz:InterTabController/>
+                </dragablz:TabablzControl.InterTabController>
+                <TabItem Header="LIST OF CUSTOMERS">
+                    <Grid>
+                        <ListView x:Name="LsvKhachHang" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1100" Margin="10,90,10,0">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="#" Width="60" DisplayMemberBinding="{Binding STT}"/>
+                                    <GridViewColumn Header="Customer name" Width="200" DisplayMemberBinding="{Binding TenKhachHang}"/>
+                                    <GridViewColumn Header="Phone number" Width="150" DisplayMemberBinding="{Binding SoDienThoai}"/>
+                                    <GridViewColumn Header="Address" Width="200" DisplayMemberBinding="{Binding DiaChi}"/>
+                                    <GridViewColumn Header="Total expenditure" Width="180" DisplayMemberBinding="{Binding TongTienDaMua}"/>
+                                    <GridViewColumn Header="Customer ranking" Width="150" DisplayMemberBinding="{Binding PhanLoaiKH}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <TextBox x:Name="txtTimKiem" HorizontalAlignment="Left" Height="28" Margin="700,30,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="152" FontSize="14"  RenderTransformOrigin="0.366,0.654" />
+                        <Button x:Name="btnTimKiem_KH" Content="Search" HorizontalAlignment="Stretch" Margin="450,-30,378,490" VerticalAlignment="Stretch" Height="30" FontSize="14" Width="150"   Click="btnTimKiemKH_Click"/>
+                        <Label Content="Enter phone number" HorizontalAlignment="Left" Margin="700,60,0,0" VerticalAlignment="Top" Height="34" Width="174" Foreground="#FF969191" FontStyle="Italic"/>
+                        <Button x:Name="btnHuyTimKiem_KH" Content="Cancel search" HorizontalAlignment="Stretch" Margin="870,-30,99,490" VerticalAlignment="Stretch" Height="30" FontSize="14" Width="150"  Click="btnHuyTimKiemKH_Click" RenderTransformOrigin="0.5,0.505"/>
+                        <Button x:Name="btnXuatDS" Content="Export list" HorizontalAlignment="Stretch" Margin="450,500,378,0" VerticalAlignment="Stretch" Height="30" FontSize="14" Width="150"  Click="BtnXuatDS_Click"/>
+                        <Label Content="      Gold" HorizontalAlignment="Left" Margin="62,427,0,0" VerticalAlignment="Top" Height="36" Width="133" Foreground="Black" Background="#FFFFD300" FontSize="20"/>
+                        <Label Content="      Silver" HorizontalAlignment="Left" Margin="62,470,0,0" VerticalAlignment="Top" Height="36" Width="133" Foreground="Black" FontSize="20">
+                            <Label.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFAEB2B2" Offset="0"/>
+                                    <GradientStop Color="#FFEAF6F5" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Label.Background>
+                        </Label>
+                        <Label Content="      Normal" HorizontalAlignment="Left" Margin="62,511,0,0" VerticalAlignment="Top" Height="36" Width="133" Foreground="Black" FontSize="20" Background="#FFCEA2C2"/>
+                        <Label Content="Disc 30% if spend over 10M VND" HorizontalAlignment="Left" Margin="200,433,0,0" VerticalAlignment="Top" Height="36" Width="208" Foreground="Black" FontStyle="Italic" FontSize="14"/>
+                        <Label Content="Disc 20% if spend over 5M VND" HorizontalAlignment="Left" Margin="200,474,0,0" VerticalAlignment="Top" Height="36" Width="208" Foreground="Black" FontStyle="Italic" FontSize="14"/>
+                        <Label Content="No disc if spend less 5M VND" HorizontalAlignment="Left" Margin="200,515,0,0" VerticalAlignment="Top" Height="36" Width="208" Foreground="Black" FontStyle="Italic" FontSize="14"/>
+                    </Grid>
+                </TabItem>
+            </dragablz:TabablzControl>
+
+        </Grid>
+
+        <Grid Margin="60,70,0,0" x:Name="GridSanPham" Visibility="Collapsed">
+            <dragablz:TabablzControl Margin="0,-26,0,0" FixedHeaderCount="2">
+                <dragablz:TabablzControl.InterTabController>
+                    <dragablz:InterTabController/>
+                </dragablz:TabablzControl.InterTabController>
+                <TabItem x:Name="tbtSanpham" Header="PRODUCTS" FontSize="14">
+                    <Grid >
+                        <Label Content="Product name" HorizontalAlignment="Left" Margin="30,30,0,0" VerticalAlignment="Top" Width="100"/>
+                        <TextBox x:Name="txtTenSanPham" HorizontalAlignment="Left" Margin="153,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                        <Label Content="Product ID" HorizontalAlignment="Left" Margin="30,60,0,0" VerticalAlignment="Top" Width="95"/>
+                        <TextBox x:Name="txtMaSp" HorizontalAlignment="Left" Margin="153,60,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                        <Label Content="Supplier" HorizontalAlignment="Left" Margin="30,90,0,0" VerticalAlignment="Top" Height="26" Width="122"/>
+                        <Label Content="Original Price" HorizontalAlignment="Left" Margin="320,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.58,1.192" Height="26" Width="100"/>
+                        <TextBox x:Name="txtGiaGoc" HorizontalAlignment="Left" Margin="450,30,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.496,-0.13"/>
+                        <Label Content="Selling Price" HorizontalAlignment="Left" Margin="320,60,0,0" VerticalAlignment="Top" Height="26" Width="100"/>
+                        <TextBox x:Name="txtGiaBan" HorizontalAlignment="Left" Margin="450,60,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                        <ListView x:Name="LsvSanPham" HorizontalAlignment="Left" Margin="10,200,10,60">
+                            <ListView.View>
+                                <GridView >
+                                    <GridViewColumn Header="#" Width="60" DisplayMemberBinding="{Binding STT}"/>
+                                    <GridViewColumn Header="" Width="60" >
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Image Width="30" Height="30" Source="{Binding Hinh}"></Image>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Product name" Width="180" DisplayMemberBinding="{Binding TenSanPham}"/>
+                                    <GridViewColumn Header="Product ID " Width="120" DisplayMemberBinding="{Binding MaSanPham}"/>
+                                    <GridViewColumn Header="Supplier" Width="120" DisplayMemberBinding="{Binding TenNCC}"/>
+                                    <GridViewColumn Header="Original Price" Width="110" DisplayMemberBinding="{Binding GiaGoc}"/>
+                                    <GridViewColumn Header="Selling price" Width="110" DisplayMemberBinding="{Binding GiaBan}"/>
+                                    <GridViewColumn Header="Import qty" Width="120" DisplayMemberBinding="{Binding SoLuongNhap}"/>
+                                    <GridViewColumn Header="Export qty" Width="120" DisplayMemberBinding="{Binding SoLuongBan}"/>
+                                    <GridViewColumn Header="Inventory qty" Width="120" DisplayMemberBinding="{Binding SoLuongTon}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button x:Name="btnTao" Content="Add new product" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" Height="30" FontSize="14" Width="150"  Click="btnTao_Click"/>
+                        <ComboBox x:Name="cboNCC" ItemsSource="{Binding listtab2}" HorizontalAlignment="Left" Margin="153,90,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cboNCC_SelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding TenNCC}"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Button x:Name="btnXuat" Content=" Export data" HorizontalAlignment="Center" Margin="370,550,378,0" VerticalAlignment="Stretch" Height="30" FontSize="14" Width="150" Click="btnXuat_Click"/>
+                        <Button x:Name="btnImg_May" Content="From computer" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="30" FontSize="14" Width="120"  Click="btnImg_May_Click" Margin="966,150,0,0"/>
+                        <Button x:Name="btnImg_Internet" Content="From Internet" HorizontalAlignment="Left" Margin="830,150,0,0" VerticalAlignment="Top" Height="30" FontSize="14" Width="120"  Click="btnImg_Internet_Click"/>
+                        <Label x:Name="lblImg" HorizontalAlignment="Left" Height="26" Margin="658,99,0,0" VerticalAlignment="Top" Width="346" FontSize="14" />
+                        <Image x:Name="Img" Margin="600,10,276,424.333" Width="120" Height="120"/>
+                        <TextBox x:Name="txtImg_Internet" HorizontalAlignment="Left" Margin="820,30,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="275"/>
+
+                    </Grid>
+
+                </TabItem>
+                <TabItem x:Name="tabNhapHang" Header="IMPORT PRODUCTS" FontSize="14">
+                    <Grid>
+                        <Label Content="Supplier Information" HorizontalAlignment="Left" Margin="61,60,0,0" VerticalAlignment="Top" FontSize="14" Grid.Column="1"/>
+                        <Button x:Name="btnHuyNhapHang" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" FontSize="16" Width="100"  Margin="65,100,0,0" Click="btnHuyNhapHang_Click"/>
+                        <ComboBox x:Name="cboChonNCC" ItemsSource="{Binding listtab2}" HorizontalAlignment="Left" Margin="255,60,0,0" VerticalAlignment="Top" Width="200" SelectionChanged="cboChonNCC_SelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding TenNCC}"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <ListBox x:Name="listboxSP" ItemsSource="{Binding List_lboSP}" HorizontalAlignment="Left" Margin="780,30,0,0" VerticalAlignment="Top" Width="300" Height="120" SelectionChanged="listboxSP_SelectionChanged" SelectionMode="Extended" Grid.RowSpan="2">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Margin="3" Width="30" Source="{Binding Hinh}"/>
+                                        <TextBlock Margin="3" Text="{Binding TenSanPham}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <Label Content="Product Information" HorizontalAlignment="Left" Margin="600,30,0,0" VerticalAlignment="Top" FontSize="14" Grid.Column="1" Grid.RowSpan="2"/>
+                        <Button x:Name="btntabNhapHang" Content="Import product" HorizontalAlignment="Left" Margin="850,530,0,0" VerticalAlignment="Top" Height="30" FontSize="16" Width="150" Click="btntabNhapHang_Click" Grid.Column="1" Grid.Row="1"/>
+                        <Label Content="Payment detail" HorizontalAlignment="Left" Margin="61,470,0,0" VerticalAlignment="Top" FontSize="20" Grid.Column="1" Grid.Row="1"/>
+                        <Label Content="Payment method" HorizontalAlignment="Left" Margin="61,500,0,0" VerticalAlignment="Top" FontSize="14" Grid.Column="1" Grid.Row="1"/>
+                        <Label Content="Total" HorizontalAlignment="Left" Margin="61,530,0,0" VerticalAlignment="Top" FontSize="14" Grid.Column="1" Grid.Row="1"/>
+                        <TextBlock x:Name="tbkTongtien" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Grid.Column="1" Margin="221,535,0,0" Grid.Row="1"/>
+                        <Label Content="Import ID" HorizontalAlignment="Left" Margin="61,30,0,0" VerticalAlignment="Top" FontSize="14" Grid.Column="1" Grid.Row="1"/>
+                        <TextBox x:Name="txtMaDon"  HorizontalAlignment="Left" Margin="255,30,0,0" VerticalAlignment="Top" FontSize="14" Width="200" Grid.Column="1" Grid.Row="1"/>
+
+                        <ListView x:Name="LsvDSNhapKho" HorizontalAlignment="Stretch" Margin="10,170,10,120" VerticalAlignment="Stretch" Foreground="Black" FontSize="16"  BorderBrush="White" SelectionChanged="LsvDSNhapKho_SelectionChanged" Grid.ColumnSpan="2" Grid.Row="1" >
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Product ID" Width="150" DisplayMemberBinding="{Binding MaSanPham}"/>
+                                    <GridViewColumn Header="Product Name" Width="180" DisplayMemberBinding="{Binding TenSanPham}"/>
+                                    <GridViewColumn x:Name="NhapSL" Header="Quantity" Width="180" DisplayMemberBinding="{Binding SLNhap}"/>
+                                    <GridViewColumn x:Name="NhapGia" Header="Original price" Width="180" DisplayMemberBinding="{Binding GiaGoc}"/>
+                                    <GridViewColumn x:Name="ThanhTien" Header="Total" Width="160" DisplayMemberBinding="{Binding ThanhTien}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <RadioButton x:Name="radCK" Content="Card" HorizontalAlignment="Left" Margin="221,500,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
+                        <RadioButton x:Name="radTM" Content="Cash" HorizontalAlignment="Left" Margin="361,500,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
+                    </Grid>
+                </TabItem>
+            </dragablz:TabablzControl>
+        </Grid>
+
+        <Grid Margin="60,70,0,0" x:Name="GridNCC" Visibility="Collapsed" >
+            <dragablz:TabablzControl Margin="0,-26,0,0" FixedHeaderCount="2" SelectionChanged="TabablzControl_SelectionChanged">
+                <dragablz:TabablzControl.InterTabController>
+                    <dragablz:InterTabController/>
+                </dragablz:TabablzControl.InterTabController>
+                <TabItem x:Name="tabNCC1" Header="LIST OF SUPPLIERS" FontSize="14">
+                    <Grid>
+                        <Label Content="Supplier Name" HorizontalAlignment="Left" Margin="100,30,0,398"  RenderTransformOrigin="0.903,-0.074"/>
+                        <TextBox x:Name="txtNhapTen" HorizontalAlignment="Left" Height="28" Margin="100,55,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="360" Grid.ColumnSpan="2"/>
+                        <Label Content="Supplier ID" HorizontalAlignment="Left" Margin="100,90,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="txtNhapMa" HorizontalAlignment="Left" Height="28" Margin="100,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Grid.ColumnSpan="2"/>
+                        <Label Content="Supplier Group" HorizontalAlignment="Left" Margin="300,90,0,0" Grid.Column="1"/>
+                        <Label Content="Phone number" HorizontalAlignment="Left" Margin="100,150,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Email" HorizontalAlignment="Left" Margin="300,150,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                        <TextBox x:Name="txtNhapSDT" HorizontalAlignment="Left" Height="28" Margin="100,180,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="160" Grid.ColumnSpan="2"/>
+                        <TextBox x:Name="txtNhapEmail" HorizontalAlignment="Left" Height="28" Margin="300,180,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="160" Grid.Column="1"/>
+                        <ComboBox x:Name="cboNhomNCC" HorizontalAlignment="Left" Margin="300,110,0,0"  Width="160" Grid.Column="1" VerticalAlignment="Top">
+                            <ComboBoxItem IsSelected="True">Select group</ComboBoxItem>
+                            <ComboBoxItem>NXB</ComboBoxItem>
+                            <ComboBoxItem>Book store</ComboBoxItem>
+                            <ComboBoxItem>Other</ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="Address" HorizontalAlignment="Left" Margin="650,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.903,-0.074" Grid.Column="1"/>
+                        <TextBox x:Name="txtNhapDiaChi" HorizontalAlignment="Left" Height="28" Margin="650,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161" Grid.Column="1"/>
+                        <Label Content="Default tax" HorizontalAlignment="Left" Margin="850,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.903,-0.074" Grid.Column="1"/>
+                        <TextBox x:Name="txtNhapWeb" HorizontalAlignment="Left" Height="28" Margin="650,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161" Grid.Column="1"/>
+                        <Label Content="Staff in charge" HorizontalAlignment="Left" Margin="650,90,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.903,-0.074" Grid.Column="1"/>
+                        <TextBox x:Name="txtNhapNV" HorizontalAlignment="Left" Height="28" Margin="650,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161" Grid.Column="1"/>
+                        <Label Content="Default price" HorizontalAlignment="Left" Margin="850,90,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.903,-0.074" Grid.Column="1"/>
+                        <Label Content="Website" HorizontalAlignment="Left" Margin="650,150,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.903,-0.074" Grid.Column="1"/>
+                        <ComboBox x:Name="cboGiaMacDinh" Margin="850,110,0,0" VerticalAlignment="Top" Grid.Column="1" Width="160" HorizontalAlignment="Left">
+                            <ComboBoxItem IsSelected="True">Select default price</ComboBoxItem>
+                            <ComboBoxItem>Import price</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox x:Name="cboThue" Margin="850,50,99,0" VerticalAlignment="Top" Grid.Column="1" Width="160" HorizontalAlignment="Left">
+                            <ComboBoxItem IsSelected="True">Select default tax</ComboBoxItem>
+                            <ComboBoxItem>Import tax</ComboBoxItem>
+                            <ComboBoxItem>Export tax</ComboBoxItem>
+                            <ComboBoxItem>No apply</ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="Payment method" HorizontalAlignment="Left" Margin="850,150,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.903,-0.074" Grid.Column="1"/>
+                        <ComboBox x:Name="cboHTTT" HorizontalAlignment="Left" Margin="850,170,0,0" VerticalAlignment="Top" Width="160" Grid.Column="1">
+                            <ComboBoxItem IsSelected="True">Select payment method</ComboBoxItem>
+                            <ComboBoxItem>Card</ComboBoxItem>
+                            <ComboBoxItem>Cash</ComboBoxItem>
+                        </ComboBox>
+                        <Button x:Name="btnHuyNCC" Content="Cancel" HorizontalAlignment="Left" Margin="700,220,0,0" VerticalAlignment="Top" Height="30" FontSize="14" Width="150"  Grid.Column="1" Click="btnHuyNCC_Click"/>
+                        <Button x:Name="btnLuuNCC" Content="Save" HorizontalAlignment="Left" Margin="860,220,0,0" VerticalAlignment="Top" Height="30" FontSize="14" Width="150"  Grid.Column="1" Click="btnLuuNCC_Click" />
+                        <ComboBox x:Name="cboThaotac" Width="160" FontSize="16" RenderTransformOrigin="0.5,0.5" Grid.Column="1" Margin="300,90,46,139" HorizontalAlignment="Left" SelectionChanged="cboThaotac_SelectionChanged">
+                            <ComboBoxItem IsSelected="True">Sort by group</ComboBoxItem>
+                            <ComboBoxItem>NXB</ComboBoxItem>
+                            <ComboBoxItem>Book store</ComboBoxItem>
+                            <ComboBoxItem>Other</ComboBoxItem>
+                        </ComboBox>
+
+                        <TextBox x:Name="txtSearch_TT" Margin="20,270,72,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="14" Width="160" HorizontalAlignment="Left"/>
+                        <Button x:Name="btnSearch_TT" Content="Search" HorizontalAlignment="Stretch" Margin="110,90,771,143" VerticalAlignment="Stretch" Height="30" FontSize="14" Width="90"  Grid.ColumnSpan="2" Click="btnSearch_TT_Click"/>
+                        <Button x:Name="btnhuytim" Content="Cancel search/sort" HorizontalAlignment="Stretch" Margin="340,-15,357,33" VerticalAlignment="Stretch" Height="30" FontSize="14" Width="170"  Grid.Column="1" Grid.Row="1" Click="btnhuytim_Click" />
+                        <Label Content="Enter Supplier ID"  VerticalAlignment="Top" Foreground="Black" FontStyle="Italic" Margin="20,240,35,0"/>
+                        <ListView x:Name="LsvDSNCC" HorizontalAlignment="Stretch" Margin="20,300,20,70" VerticalAlignment="Stretch" Foreground="Black" FontSize="16" BorderBrush="White" Grid.ColumnSpan="2" Grid.RowSpan="2" SelectionChanged="LsvDSNCC_SelectionChanged" >
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="ID" Width="80" DisplayMemberBinding="{Binding MaNCC}" />
+                                    <GridViewColumn Header="Supplier name" Width="180" DisplayMemberBinding="{Binding TenNCC}"/>
+                                    <GridViewColumn Header="Supplier group" Width="180" DisplayMemberBinding="{Binding NhomNCC}"/>
+                                    <GridViewColumn Header="Email" Width="180" DisplayMemberBinding="{Binding EmailNCC}"/>
+                                    <GridViewColumn Header="Phone number" Width="160" DisplayMemberBinding="{Binding SDTNCC}"/>
+                                    <GridViewColumn Header="Status" Width="160" DisplayMemberBinding="{Binding Trangthai}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button x:Name="btnXuatFile" Content="Export file" HorizontalAlignment="Left" Margin="860,550,0,30" Grid.Column="1" Height="30" FontSize="14" Width="150"  Grid.Row="1" Click="btnXuatFile_Click" />
+                        <Label Content="NXB:" HorizontalAlignment="Left" Margin="20,0,0,29.667" VerticalAlignment="Bottom" RenderTransformOrigin="0.903,-0.074" Grid.Row="1"/>
+                        <Label Content="Book store:" HorizontalAlignment="Left" Margin="100,0,0,29.667" VerticalAlignment="Bottom" RenderTransformOrigin="0.903,-0.074" Grid.ColumnSpan="2" Grid.Row="1"/>
+                        <Label Content="Other:" HorizontalAlignment="Left" Margin="210.333,0,0,29.667" VerticalAlignment="Bottom" RenderTransformOrigin="0.903,-0.074" Grid.Column="1" Grid.Row="1"/>
+                        <Label x:Name='lblSLKhac' HorizontalAlignment="Left" Margin="250,30,0,32.667" VerticalAlignment="Bottom" RenderTransformOrigin="0.903,-0.074" Grid.Column="1" Grid.Row="1" Height="25" Width="75"/>
+                        <Label x:Name='lblSLNS' HorizontalAlignment="Left" Margin="180,30,0,32.667" VerticalAlignment="Bottom" RenderTransformOrigin="0.903,-0.074" Grid.Column="1" Grid.Row="1" Height="25" Width="75"/>
+                        <Label x:Name='lblSLNXB' HorizontalAlignment="Left" Margin="60,30,0,32.667" VerticalAlignment="Bottom" RenderTransformOrigin="0.903,-0.074" Grid.Row="1" Height="25" Width="75"/>
+
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="DetailInfo" Header="DETAIL INFORMATION" FontSize="14">
+                    <Grid>
+                        <Button x:Name="btnXoaNhom" Content="Delete supplier" HorizontalAlignment="Left" Margin="890,180,0,292" Height="30" FontSize="14" Width="160"   Click="BtnXoaNhom_Click_1" />
+                        <Button x:Name="btnUpdate" Content="Update information" HorizontalAlignment="Left" Margin="720,180,0,292" Height="30" FontSize="14" Width="160"  Click="BtnUpdate_Click" />
+                        <Label Content="Supplier group" HorizontalAlignment="Left" Margin="80,90,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.903,-0.074"/>
+                        <TextBox x:Name="txt_TTNCC_Nhom" HorizontalAlignment="Left" Margin="230,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" />
+                        <Label Content="Supplier ID" HorizontalAlignment="Left" Margin="80,120,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.903,-0.074"/>
+                        <Label Content="Phone number" HorizontalAlignment="Left" Margin="80,150,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.903,-0.074"/>
+                        <TextBox x:Name="txt_TTNCC_Ma" HorizontalAlignment="Left" Margin="230,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" />
+                        <TextBox x:Name="txt_TTNCC_sdt" HorizontalAlignment="Left" Margin="230,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" />
+                        <Label Content="Email" HorizontalAlignment="Left" Margin="450,90,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.903,-0.074"/>
+                        <Label Content="Address" HorizontalAlignment="Left" Margin="450,150,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.903,-0.074"/>
+                        <Label Content="Website" HorizontalAlignment="Left" Margin="450,120,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.903,-0.074"/>
+                        <Label Content="Payment Method" HorizontalAlignment="Left" Margin="740,180,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="txt_TTNCC_Email1"  HorizontalAlignment="Left" Margin="530,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
+                        <TextBox x:Name="txt_TTNCC_DiaChi" HorizontalAlignment="Left" Margin="530,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" />
+                        <TextBox x:Name="txt_TTNCC_Website" HorizontalAlignment="Left" Margin="530,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
+                        <TextBox x:Name="txt_TTNCC_HTTT" HorizontalAlignment="Left" Height="23" Margin="890,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" />
+                        <Label Content="Staff in charge" HorizontalAlignment="Left" Margin="740,90,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.903,-0.074"/>
+                        <TextBox x:Name="txt_TTNCC_NVien1" HorizontalAlignment="Left" Height="23" Margin="890,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" />
+                        <TextBox x:Name="txt_TTNCC_ThueMacDinh" HorizontalAlignment="Left" Height="23" Margin="890,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" />
+                        <Label Content="Default tax" HorizontalAlignment="Left" Margin="740,120,0,0" VerticalAlignment="Top" />
+                        <Label Content="Default price" HorizontalAlignment="Left" Margin="740,150,0,0" VerticalAlignment="Top" />
+                        <TextBox x:Name="txt_TTNCC_GiaMD" HorizontalAlignment="Left" Height="23" Margin="890,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
+                        <ListView x:Name="LsvLichsu" HorizontalAlignment="Center" Foreground="Black" FontSize="16"  BorderBrush="White" Grid.ColumnSpan="2" Margin="10,310,90,10">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Import ID" Width="250" DisplayMemberBinding="{Binding MaDonNhap}"/>
+                                    <GridViewColumn Header="Total" Width="250" DisplayMemberBinding="{Binding TongGiaTri}"/>
+                                    <GridViewColumn Header="Date of order creation" Width="250"  DisplayMemberBinding="{Binding NgayTaoDonNhap}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Label x:Name="lblTenNCC" Content="Suppier Information" Margin="268,18,266,0" VerticalAlignment="Top" FontSize="30" HorizontalAlignment="Center"/>
+                        <Label Content="Import History" VerticalAlignment="Top" Margin="270" FontSize="30" HorizontalAlignment="Center"/>
+
+
+                    </Grid>
+                </TabItem>
+            </dragablz:TabablzControl>
+        </Grid>
+
+        <Grid Margin="60,70,0,0" x:Name="GridBaoCao" Visibility="Collapsed" >
+            <dragablz:TabablzControl x:Name="tbcBC" Margin="0,-26,0,0">
+                <dragablz:TabablzControl.InterTabController>
+                    <dragablz:InterTabController/>
+                </dragablz:TabablzControl.InterTabController>
+                <TabItem x:Name="tabTongquan" Header="OVERVIEW">
+                    <Grid >
+                        <DockPanel>
+                        </DockPanel>
+                        <materialDesign:Card Width="340" Height="150" HorizontalAlignment="Left" Margin="30,30,0,0" VerticalAlignment="Top" >
+                            <materialDesign:Card.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFB39DDB"/>
+                                    <GradientStop Color="#FFFF00AB" Offset="1"/>
+                                </LinearGradientBrush>
+                            </materialDesign:Card.Background>
+                            <TextBlock x:Name="tbkDT" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="35" FontWeight="SemiBold" Margin="30,15,0,0" Foreground="White" ></TextBlock>
+                        </materialDesign:Card>
+                        <Label Content="Total revenue" FontSize="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,60" Foreground="White"/>
+                        <materialDesign:PackIcon Kind="MoneyUsd" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="270,80" Height="60" Width="70" Foreground="#FFFF00AB" Background="White"/>
+
+
+                        <materialDesign:Card  Width="340" Height="340" HorizontalAlignment="Left" Margin="30,200,0,0" VerticalAlignment="Top" >
+                            <lvc:PieChart  Width="340" x:Name="piechart1" HorizontalAlignment="Left" Height="280" VerticalAlignment="Top" />
+                        </materialDesign:Card>
+
+                        <materialDesign:Card Width="340" Height="150" HorizontalAlignment="Left" Margin="400,30,0,0" VerticalAlignment="Top" >
+                            <materialDesign:Card.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFFDCE26" Offset="1"/>
+                                    <GradientStop Color="#FFFD0F36"/>
+                                </LinearGradientBrush>
+                            </materialDesign:Card.Background>
+                            <TextBlock x:Name="tbkSL" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="35" FontWeight="SemiBold" Margin="30,15,0,0" Foreground="White" ></TextBlock>
+                        </materialDesign:Card>
+                        <Label Content="Total Quantity" FontSize="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="420,60,0,0" Foreground="White"/>
+                        <materialDesign:PackIcon Kind="Warehouse" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="640,80,0,0" Height="60" Width="70" Foreground="#FFFD0F36" Background="White"/>
+
+
+                        <materialDesign:Card Width="340" Height="340" HorizontalAlignment="Left" Margin="400,200,0,0" VerticalAlignment="Top" >
+                            <lvc:PieChart Width="340" x:Name="piechart2" HorizontalAlignment="Left" Height="280" VerticalAlignment="Top" />
+
+                        </materialDesign:Card>
+
+                        <materialDesign:Card Width="340" Height="150" HorizontalAlignment="Left" Margin="770,30,0,0" VerticalAlignment="Top" >
+                            <materialDesign:Card.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF00E4FF" Offset="0"/>
+                                    <GradientStop Color="#FF016CFD" Offset="1"/>
+                                </LinearGradientBrush>
+                            </materialDesign:Card.Background>
+                            <TextBlock  x:Name="tbkLN"  HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="35" FontWeight="SemiBold" Margin="30,15,0,0" Foreground="White"></TextBlock>
+
+                        </materialDesign:Card>
+                        <materialDesign:Card Width="340" Height="340" HorizontalAlignment="Left" Margin="770,200,0,0" VerticalAlignment="Top" >
+                            <lvc:PieChart x:Name="piechart3" HorizontalAlignment="Left" Height="280" VerticalAlignment="Top" Width="340"/>
+
+                        </materialDesign:Card>
+                        <Label Content="Total profit" FontSize="28" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="785,60,0,0" Foreground="White"/>
+
+                        <materialDesign:PackIcon Kind="Money" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1010,80,0,0" Height="60" Width="70" Foreground="#FF016CFD" Background="White"/>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="DETAIL INFORMATION">
+                    <Grid>
+                        <Label Margin="140,50,5,-3" FontSize="14">Product ID</Label>
+                        <TextBox x:Name="txtSKU" Width="200" Margin="250,50,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <Button x:Name="btnTimKiem" Height="30" FontSize="14" Width="160" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="480,50,0,0" Click="btnTimKiemBC_Click">Search</Button>
+                        <Button x:Name="btnHuyTimKiemBC" Height="30" FontSize="14" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="660,50,0,0" Click="btnHuyTimKiemBC_Click">Cancek search/sort</Button>
+                        <Button x:Name="btnXuaBCDT" Height="30" FontSize="14" Width="160" Content="Export report" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20" Click="btnXuaBCDT_Click"/>
+
+                        <ListView x:Name="lsvBCDT" Margin="16,136,150,31" HorizontalAlignment="Center">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="#" DisplayMemberBinding="{Binding STT}" Width="60" ></GridViewColumn>
+                                    <GridViewColumn Header="Product ID" DisplayMemberBinding="{Binding SKU}" Width="120"></GridViewColumn>
+                                    <GridViewColumn Header="Product name" DisplayMemberBinding="{Binding Tensp}" Width="150"></GridViewColumn>
+                                    <GridViewColumn DisplayMemberBinding="{Binding SL}" Width="120">
+                                        <GridViewColumnHeader x:Name="gvchSL" Click="gvchSL_Click" >Quantity</GridViewColumnHeader>
+                                    </GridViewColumn>
+                                    <GridViewColumn  Width="100" DisplayMemberBinding="{Binding DT}" >
+                                        <GridViewColumnHeader x:Name="gvchDT" Click="gvchDT_Click" >Revenue</GridViewColumnHeader>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Capital" Width="100" DisplayMemberBinding="{Binding TV}"></GridViewColumn>
+                                    <GridViewColumn Header="Discount" Width="100" DisplayMemberBinding="{Binding GT}"></GridViewColumn>
+                                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding LN}">
+                                        <GridViewColumnHeader x:Name="gvcgLN" Click="gvcgLN_Click" >Profit</GridViewColumnHeader>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </TabItem>
+            </dragablz:TabablzControl>
+
+        </Grid>
+        <Grid x:Name="GridMenu" Width="60" HorizontalAlignment="Left" Background="#25271C">
+            <StackPanel>
+                <Grid Height="150" Background="#F3D548">
+                    <Button x:Name="btnCloseMenu" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="Collapsed" Click="btnCloseMenu_Click">
+                        <materialDesign:PackIcon Foreground="#FDFDFD" Kind="ArrowLeft" Width="25" Height="25"/>
+                    </Button>
+                    <Image x:Name="Img_Logo" Source="/Đăng nhập/Logo/logoA.png" Width="125" Height="125" Visibility="Hidden"/>
+                    <Button x:Name="btnOpenMenu" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="btnOpenMenu_Click">
+                        <materialDesign:PackIcon Foreground="#FDFDFD" Kind="Menu" Width="25" Height="25"/>
+                    </Button>
+                </Grid>
+                <ListView  ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="#25271C">
+                    <ListViewItem x:Name="tabDH" Height="60" Selected="tabDH_Selected">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Receipt" VerticalAlignment="Center" Width="25" Height="25" Margin="10" Foreground="#FDFDFD"/>
+                            <TextBlock Text="INVOICE" VerticalAlignment="Center" Margin="20 10" Foreground="#FDFDFD"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60" x:Name="tabKH" Selected="tabKH_Selected" >
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="People" VerticalAlignment="Center" Width="25" Height="25" Margin="10" Foreground="#FDFDFD"/>
+                            <TextBlock Text="CUSTOMERS" VerticalAlignment="Center" Margin="20 10" Foreground="#FDFDFD"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60" x:Name="tabSP" Selected="tabSP_Selected">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Warehouse" VerticalAlignment="Center" Width="25" Height="25" Margin="10" Foreground="#FDFDFD"/>
+                            <TextBlock Text="PRODUCTS" VerticalAlignment="Center" Margin="20 10" Foreground="#FDFDFD"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60" x:Name="tabNCC" Selected="tabNCC_Selected">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="BookMultipleAdd" VerticalAlignment="Center" Width="25" Height="25" Margin="10" Foreground="#FDFDFD"/>
+                            <TextBlock Text="SUPPLIERS" VerticalAlignment="Center" Margin="20 10" Foreground="#FDFDFD"/>
+                            <Label Content="Label"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60" x:Name="tabBC" Selected="tabBC_Selected" >
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="AttachMoney" VerticalAlignment="Center" Width="25" Height="25" Margin="10" Foreground="#FDFDFD"/>
+                            <TextBlock Text="DATA REPORT" VerticalAlignment="Center" Margin="20 10" Foreground="#FDFDFD"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
