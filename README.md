@@ -4,6 +4,17 @@ business strategy with data visualization of sales report. Livre integrates high
 
 Our project achieved <b>THE HIGHEST SCORE</b> among 13 teams and developed based on .NET WPF framework. Check out <a href = "https://drive.google.com/file/d/1Y38u5YtfFi86JUDMqW-zfaaU9BHvVNNG/view?usp=sharing">demo video</a> to learn more about functionalities of Livre.
 
+
+![Alt Image text](readme_images/login.jpg)
+![Alt Image text](readme_images/intro.jpg)
+![Alt Image text](readme_images/menu.jpg)
+![Alt Image text](readme_images/invoice.jpg)
+![Alt Image text](readme_images/customer.jpg)
+![Alt Image text](readme_images/product.jpg)
+![Alt Image text](readme_images/supplier.jpg)
+![Alt Image text](readme_images/data_report.jpg)
+
+
 Contributors:
 <ul>
 <li><a href = "https://www.linkedin.com/in/trangttdang/">Trang Dang</a></li>
