@@ -1,4 +1,4 @@
-# Livre - Bookstore Management System
+# <a href = "https://drive.google.com/file/d/1Y38u5YtfFi86JUDMqW-zfaaU9BHvVNNG/view?usp=sharing">Livre - Bookstore Management System<a>
 A convenient and easy-to-use software with functions to manage orders, customers, products, suppliers, and sales reports. Livre helps control import and export operations; make appropriate promotion policies based on customers' data; revise effective
 business strategy with data visualization of sales report. Livre integrates high decentralization to ensure the security of internal information with a professional and eye-catching interface, creating a comfortable feeling for users. 
 
